@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -23,6 +23,11 @@ const Read = () => {
 				getData();
 			});
 	}
+	const moodColor = useCallback(() => {
+
+		if (tabledark === "table-dark") setTableDark("");
+		else setTableDark("table-dark");
+	}, [tabledark])
 
 	const setToLocalStorage = (id, name, email) => {
 		localStorage.setItem("id", id);
@@ -40,10 +45,7 @@ const Read = () => {
 				<input
 					className="form-check-input"
 					type="checkbox"
-					onClick={() => {
-						if (tabledark === "table-dark") setTableDark("");
-						else setTableDark("table-dark");
-					}}
+					onClick={moodColor}
 				/>
 			</div>
 			<div className="d-flex justify-content-between m-2">
@@ -64,41 +66,41 @@ const Read = () => {
 				</thead>
 				{data.map((eachData) => {
 					return (
-						
-							<tbody key= {eachData.id}>
-								<tr>
-									<th scope="row">{eachData.id} </th>
-									<td>{eachData.name}</td>
-									<td>{eachData.email}</td>
-									<td>
-										<Link to="/update">
-											<button
-												className="btn-success"
-												onClick={() =>
-													setToLocalStorage(
-														eachData.id,
-														eachData.name,
-														eachData.email
-													)
-												}
-											>
-												Edit{" "}
-											</button>
-										</Link>
-									</td>
-									<td>
+
+						<tbody key={eachData.id}>
+							<tr>
+								<th scope="row">{eachData.id} </th>
+								<td>{eachData.name}</td>
+								<td>{eachData.email}</td>
+								<td>
+									<Link to="/update">
 										<button
-											className="btn-danger"
+											className="btn-success"
 											onClick={() =>
-												handleDelete(eachData.id)
+												setToLocalStorage(
+													eachData.id,
+													eachData.name,
+													eachData.email
+												)
 											}
 										>
-											Delete
+											Edit{" "}
 										</button>
-									</td>
-								</tr>
-							</tbody>
-						
+									</Link>
+								</td>
+								<td>
+									<button
+										className="btn-danger"
+										onClick={() =>
+											handleDelete(eachData.id)
+										}
+									>
+										Delete
+									</button>
+								</td>
+							</tr>
+						</tbody>
+
 					);
 				})}
 			</table>
