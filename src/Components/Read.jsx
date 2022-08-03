@@ -24,7 +24,6 @@ const Read = () => {
 			});
 	}
 	const moodColor = useCallback(() => {
-
 		if (tabledark === "table-dark") setTableDark("");
 		else setTableDark("table-dark");
 	}, [tabledark])
@@ -84,7 +83,7 @@ const Read = () => {
 												)
 											}
 										>
-											Edit{" "}
+											Edit
 										</button>
 									</Link>
 								</td>
