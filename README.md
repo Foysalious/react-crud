@@ -1,5 +1,5 @@
 # Getting Started with Create React App
-
+Create a .env.local file and use REACT_APP_API_URL and provide the URL
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
