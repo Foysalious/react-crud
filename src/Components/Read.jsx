@@ -1,17 +1,23 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Login from "./Login";
 
 const Read = () => {
 	const [data, setData] = useState([]);
 	const [tabledark, setTableDark] = useState("");
 
 	function getData() {
-		axios
-			.get("https://62a59821b9b74f766a3c09a4.mockapi.io/crud-youtube")
-			.then((res) => {
-				setData(res.data);
-			});
+		if (localStorage.getItem('access_token') != null) {
+			axios
+				.get("http://127.0.0.1:8000/api/products", { headers: { "Authorization": `Bearer ${localStorage.getItem('access_token')}` } })
+				.then((res) => {
+					setData(res.data.products);
+				});
+		}
+		else {
+			<Login></Login>
+		}
 	}
 
 	function handleDelete(id) {
@@ -48,7 +54,7 @@ const Read = () => {
 				/>
 			</div>
 			<div className="d-flex justify-content-between m-2">
-				<h2>All User</h2>
+				<h2>All Product</h2>
 				<Link to="/">
 					<button className="btn btn-secondary">Create</button>
 				</Link>
@@ -57,8 +63,9 @@ const Read = () => {
 				<thead>
 					<tr>
 						<th scope="col">#</th>
-						<th scope="col">Name</th>
-						<th scope="col">Email</th>
+						<th scope="col">Title</th>
+						<th scope="col">Price</th>
+						<th scope="col">Discounted Price</th>
 						<th scope="col"></th>
 						<th scope="col"></th>
 					</tr>
@@ -69,8 +76,9 @@ const Read = () => {
 						<tbody key={eachData.id}>
 							<tr>
 								<th scope="row">{eachData.id} </th>
-								<td>{eachData.name}</td>
-								<td>{eachData.email}</td>
+								<td>{eachData.title}</td>
+								<td>{eachData.price}</td>
+								<td>{eachData.discounted_price}</td>
 								<td>
 									<Link to="/update">
 										<button
@@ -78,8 +86,8 @@ const Read = () => {
 											onClick={() =>
 												setToLocalStorage(
 													eachData.id,
-													eachData.name,
-													eachData.email
+													eachData.title,
+													eachData.price
 												)
 											}
 										>
