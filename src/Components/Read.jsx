@@ -12,11 +12,12 @@ const Read = () => {
 			axios
 				.get("http://127.0.0.1:8000/api/products", { headers: { "Authorization": `Bearer ${localStorage.getItem('access_token')}` } })
 				.then((res) => {
+					console.log(res.data.products);
 					setData(res.data.products);
 				});
 		}
 		else {
-			<Login></Login>
+			<Login></Login> 
 		}
 	}
 
@@ -66,8 +67,8 @@ const Read = () => {
 						<th scope="col">Title</th>
 						<th scope="col">Price</th>
 						<th scope="col">Discounted Price</th>
-						<th scope="col"></th>
-						<th scope="col"></th>
+						<th scope="col">Update</th>
+						<th scope="col">Delete</th>
 					</tr>
 				</thead>
 				{data.map((eachData) => {

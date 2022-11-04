@@ -16,7 +16,7 @@ function App() {
           <Route path="/product/create" element={<Create />}></Route>
           <Route path="/register" element={<Registration />}></Route>
           <Route path="/read" element={<Read />}></Route>
-          <Route path="/update" element={<Update />}></Route>
+          <Route path="/product/update/:slug" element={<Update />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
