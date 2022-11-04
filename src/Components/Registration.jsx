@@ -11,7 +11,7 @@ export default function (props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
-            .post(`${process.env.REACT_APP_API_URL}/api/auth/register`, {
+            .post(`${process.env.REACT_APP_API_URL}/api/register`, {
                 name: name,
                 email: email,
                 password: password,
