@@ -10,21 +10,20 @@ const Read = () => {
 	function getData() {
 		if (localStorage.getItem('access_token') != null) {
 			axios
-				.get("http://127.0.0.1:8000/api/products", { headers: { "Authorization": `Bearer ${localStorage.getItem('access_token')}` } })
+				.get(process.env.REACT_APP_API_URL+"/api/products", { headers: { "Authorization": `Bearer ${localStorage.getItem('access_token')}` } })
 				.then((res) => {
-					console.log(res.data.products);
 					setData(res.data.products);
 				});
 		}
 		else {
-			<Login></Login> 
+			<Login></Login>
 		}
 	}
 
-	function handleDelete(id) {
+	function handleDelete(slug) {
 		axios
 			.delete(
-				`https://62a59821b9b74f766a3c09a4.mockapi.io/crud-youtube/${id}`
+				`${process.env.REACT_APP_API_URL}/api/products/${slug}`, { headers: { "Authorization": `Bearer ${localStorage.getItem('access_token')}` } }
 			)
 			.then(() => {
 				getData();
@@ -56,7 +55,7 @@ const Read = () => {
 			</div>
 			<div className="d-flex justify-content-between m-2">
 				<h2>All Product</h2>
-				<Link to="/">
+				<Link to="/product/create">
 					<button className="btn btn-secondary">Create</button>
 				</Link>
 			</div>
@@ -81,7 +80,7 @@ const Read = () => {
 								<td>{eachData.price}</td>
 								<td>{eachData.discounted_price}</td>
 								<td>
-									<Link to="/update">
+									<Link to={`/product/update/${eachData.slug}`}>
 										<button
 											className="btn-success"
 											onClick={() =>
@@ -100,7 +99,7 @@ const Read = () => {
 									<button
 										className="btn-danger"
 										onClick={() =>
-											handleDelete(eachData.id)
+											handleDelete(eachData.slug)
 										}
 									>
 										Delete

@@ -20,7 +20,7 @@ const Update = () => {
 
 	useEffect(() => {
 		if (localStorage.getItem('access_token') != null) {
-			const api = "http://127.0.0.1:8000/api/products/"+ slug
+			const api = process.env.REACT_APP_API_URL + "/api/products/" + slug
 			axios
 				.get(api, { headers: { "Authorization": `Bearer ${localStorage.getItem('access_token')}` } })
 				.then((res) => {
@@ -35,7 +35,7 @@ const Update = () => {
 
 		e.preventDefault();
 		const data = { title: title, price: price, discounted_price: discountedPrice, description: description, variant: JSON.stringify(variant), color: JSON.stringify(color), product_image: productImage, thumbnail_image: thumbNailImage, short_image: shortImage }
-		const api= "http://127.0.0.1:8000/api/products/" + slug
+		const api = process.env.REACT_APP_API_URL+"/api/products/" + slug
 		axios
 			.put(api, data, {
 				headers: {
@@ -62,7 +62,6 @@ const Update = () => {
 				return resolve(fileReader.result);
 			}
 			fileReader.onerror = (error) => {
-				console.log(1);
 				reject(error);
 			}
 		})
@@ -85,7 +84,6 @@ const Update = () => {
 		const file = e.target.files[0]
 		const base64 = await convertBase64(file)
 		setshortImageImage(base64)
-		console.log(shortImage);
 	}
 
 	return (
@@ -142,7 +140,7 @@ const Update = () => {
 				</div>
 				<div className="mb-3">
 					<label className="form-label">Variant</label>
-					<select class="form-select" aria-label="Default select example" onChange={(e) => setVariantArray(e.target.value)}>
+					<select class="form-select" aria-label="Default select example" option="XL" onChange={(e) => setVariantArray(e.target.value)}>
 						<option selected>Open this select variant</option>
 						<option value="XL">XL</option>
 						<option value="L">L</option>
@@ -168,8 +166,8 @@ const Update = () => {
 						aria-describedby="emailHelp"
 						onChange={e => buffer(e)}
 					/>
-					<img src={ data.product_image } width="50" height="50"/>
-					
+					<img src={data.product_image} width="50" height="50" />
+
 
 				</div>
 
@@ -181,7 +179,7 @@ const Update = () => {
 						aria-describedby="emailHelp"
 						onChange={(e) => thumbNailImageBuffer(e)}
 					/>
-						<img src={ data.thumbnail_image } width="50" height="50"/>
+					<img src={data.thumbnail_image} width="50" height="50" />
 				</div>
 				<div className="mb-3">
 					<label className="form-label">3rd Image</label>
@@ -191,7 +189,7 @@ const Update = () => {
 						aria-describedby="emailHelp"
 						onChange={(e) => shortImageBuffer(e)}
 					/>
-					<img src={ data.short_image } width="50" height="50"/>
+					<img src={data.short_image} width="50" height="50" />
 				</div>
 
 				<button

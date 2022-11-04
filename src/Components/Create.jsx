@@ -23,9 +23,8 @@ const Create = () => {
 
 		e.preventDefault();
 		const data = { title: title, price: price, discounted_price: discountedPrice, description: description, variant: JSON.stringify( variant), color: JSON.stringify(color), product_image: productImage, thumbnail_image: thumbNailImage, short_image: shortImage }
-		console.log(data);
 		axios
-			.post("http://127.0.0.1:8000/api/products", data, {
+			.post(`${process.env.REACT_APP_API_URL}/api/products`, data, {
 				headers: {
 					"Authorization": `Bearer ${localStorage.getItem('access_token')}`,
 				}
@@ -50,7 +49,6 @@ const Create = () => {
 				return resolve(fileReader.result);
 			}
 			fileReader.onerror = (error) => {
-				console.log(1);
 				reject(error);
 			}
 		})
@@ -73,7 +71,7 @@ const Create = () => {
 		const file = e.target.files[0]
 		const base64 = await convertBase64(file)
 		setshortImageImage(base64)
-		console.log(shortImage);
+		
 	}
 
 	return (

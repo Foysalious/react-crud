@@ -10,13 +10,19 @@ export default function (props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://127.0.0.1:8000/api/auth/login", {
+      .post(`${process.env.REACT_APP_API_URL}/api/auth/login`, {
         email: email,
         password: password,
       })
       .then((data) => {
         localStorage.setItem('access_token', data.data.access_token)
         history("/");
+      })
+      .catch(function (error) {
+        if (error.response.status===401) {
+          alert("Please check your credentials")
+        } 
+    
       });
   };
   return (

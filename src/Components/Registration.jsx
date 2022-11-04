@@ -11,7 +11,7 @@ export default function (props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
-            .post("http://127.0.0.1:8000/api/auth/register", {
+            .post(`${process.env.REACT_APP_API_URL}/api/auth/register`, {
                 name: name,
                 email: email,
                 password: password,
