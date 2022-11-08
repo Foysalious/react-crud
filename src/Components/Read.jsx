@@ -45,7 +45,8 @@ const Read = () => {
 			getData();
 		}
 		else {
-			history("/login");
+			
+			<Login></Login>
 		}
 	}, []);
 

@@ -19,17 +19,15 @@ const Update = () => {
 	const history = useNavigate();
 
 	useEffect(() => {
-		if (localStorage.getItem('access_token') != null) {
+	
 			const api = process.env.REACT_APP_API_URL + "/api/products/" + slug
 			axios
 				.get(api, { headers: { "Authorization": `Bearer ${localStorage.getItem('access_token')}` } })
 				.then((res) => {
 					setData(res.data.product);
 				});
-		}
-		else {
-			history("/login");
-		}
+		
+		
 	}, []);
 	const handleSubmit = (e) => {
 
