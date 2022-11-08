@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import Login from "./Login";
+import { useNavigate } from "react-router";
 
 const ProductDetails = () => {
     const [title, setTitle] = useState("");
@@ -28,8 +28,9 @@ const ProductDetails = () => {
                 });
         }
         else {
-            <Login></Login>
-        }
+            console.log(1);
+			history("/login")
+		}
     }, []);
     return (
         <>

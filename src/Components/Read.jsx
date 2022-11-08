@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import Login from "./Login";
 
+
 const Read = () => {
+	
 	const [data, setData] = useState([]);
 	const [tabledark, setTableDark] = useState("");
 
+	const navigate = useNavigate();
 	function getData() {
 		if (localStorage.getItem('access_token') != null) {
 			axios
@@ -45,8 +49,7 @@ const Read = () => {
 			getData();
 		}
 		else {
-			
-			<Login></Login>
+			navigate("/login")
 		}
 	}, []);
 

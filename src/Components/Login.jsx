@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router";
 import axios from "axios";
-
+import { Link  } from "react-router-dom";
 
 export default function (props) {
   const [email, setEmail] = useState("");
@@ -19,10 +19,10 @@ export default function (props) {
         history("/");
       })
       .catch(function (error) {
-        if (error.response.status===401) {
+        if (error.response.status === 401) {
           alert("Please check your credentials")
-        } 
-    
+        }
+
       });
   };
   return (
@@ -54,7 +54,9 @@ export default function (props) {
             </button>
           </div>
           <p className="forgot-password text-right mt-2">
-            Register <a href="/register">now?</a>
+            <Link to="/register">
+              <button className="btn btn-primary">Registration</button>
+            </Link>
           </p>
         </div>
       </form>
