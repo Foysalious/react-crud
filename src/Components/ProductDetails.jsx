@@ -28,8 +28,7 @@ const ProductDetails = () => {
                 });
         }
         else {
-            console.log(1);
-			history("/login")
+           history("/login")
 		}
     }, []);
     return (
