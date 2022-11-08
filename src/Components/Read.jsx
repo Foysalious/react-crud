@@ -10,7 +10,7 @@ const Read = () => {
 	function getData() {
 		if (localStorage.getItem('access_token') != null) {
 			axios
-				.get(process.env.REACT_APP_API_URL+"/api/products", { headers: { "Authorization": `Bearer ${localStorage.getItem('access_token')}` } })
+				.get(process.env.REACT_APP_API_URL + "/api/products", { headers: { "Authorization": `Bearer ${localStorage.getItem('access_token')}` } })
 				.then((res) => {
 					setData(res.data.products);
 				});
@@ -41,7 +41,12 @@ const Read = () => {
 	};
 
 	useEffect(() => {
-		getData();
+		if (localStorage.getItem('access_token') != null) {
+			getData();
+		}
+		else {
+			history("/login");
+		}
 	}, []);
 
 	return (

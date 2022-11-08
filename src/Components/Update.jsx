@@ -28,7 +28,7 @@ const Update = () => {
 				});
 		}
 		else {
-			<Login></Login>
+			history("/login");
 		}
 	}, []);
 	const handleSubmit = (e) => {
